@@ -7,7 +7,6 @@ import com.kpi.ipt.crypto.service.impl.CSVReaderImpl;
 import com.kpi.ipt.crypto.service.impl.CalculatorImpl;
 import org.apache.commons.csv.CSVRecord;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -32,6 +31,16 @@ public class Main {
         double[] ciphertextDistribution = new double[CIPHERTEXT_POWER];
 
 
+        /*for (int cipher = 0; cipher < CIPHERTEXT_POWER; cipher++) {
+            for (int key = 0; key < CIPHERTEXT_POWER; key++) {
+                for (int message = 0; message < CIPHERTEXT_POWER; message++) {
+                    if (cipherMatrix[key][message] == cipher) {
+                        ciphertextDistribution[cipher] += messageDistribution[message] * keyDistribution[key];
+                    }
+                }
+            }
+        }*/
+
         for (int i = 0; i < cipherMatrix.length; i++) {
             for (int j = 0; j < cipherMatrix[i].length; j++) {
                 int ciphertextNumber = cipherMatrix[i][j];
@@ -39,6 +48,39 @@ public class Main {
             }
         }
 
+        double[][] messageAndCiphertextDistribution = new double[CIPHERTEXT_POWER][CIPHERTEXT_POWER];
+        for (int i = 0; i < CIPHERTEXT_POWER; i++) {
+            messageAndCiphertextDistribution[i] = new double[CIPHERTEXT_POWER];
+        }
+
+        /*for (int cipher = 0; cipher < CIPHERTEXT_POWER; cipher++) {
+            for (int message = 0; message < CIPHERTEXT_POWER; message++) {
+                if (cipher == cipherMatrix[message][cipher]) {
+                    messageAndCiphertextDistribution[message][cipher] += messageDistribution[message] * keyDistribution[key];
+                }
+            }
+        }*/
+
+        for (int i = 0; i < messageAndCiphertextDistribution.length; i++) {
+            for (int j = 0; j < messageAndCiphertextDistribution[i].length; j++) {
+                for (int cipher = 0; cipher < CIPHERTEXT_POWER; cipher++) {
+                    if (cipher == cipherMatrix[i][j]) {
+                        messageAndCiphertextDistribution[j][i] += messageDistribution[j] * keyDistribution[i];
+                    }
+                }
+            }
+        }
+
+        double[][] messageConditionalCiphertextDistribution = new double[CIPHERTEXT_POWER][CIPHERTEXT_POWER];
+        for (int i = 0; i < CIPHERTEXT_POWER; i++) {
+            messageConditionalCiphertextDistribution[i] = new double[CIPHERTEXT_POWER];
+        }
+
+        for (int i = 0; i < CIPHERTEXT_POWER; i++) {
+            for (int j = 0; j < CIPHERTEXT_POWER; j++) {
+                messageConditionalCiphertextDistribution[i][j] = messageAndCiphertextDistribution[i][j] / ciphertextDistribution[j];
+            }
+        }
 
     }
 }
