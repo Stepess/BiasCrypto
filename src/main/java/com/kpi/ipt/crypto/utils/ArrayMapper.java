@@ -1,10 +1,12 @@
-package com.kpi.ipt.crypto.service;
+package com.kpi.ipt.crypto.utils;
 
 import org.apache.commons.csv.CSVRecord;
 
 import java.util.List;
 
-public class ArrayMapper {
+public final class ArrayMapper {
+
+    private ArrayMapper() {}
 
     public static double[] mapToDouble(CSVRecord csvRecord) {
         int recordNumber = csvRecord.size();

@@ -1,7 +1,6 @@
 package com.kpi.ipt.crypto.service.impl;
 
 import com.kpi.ipt.crypto.service.CSVReader;
-import com.kpi.ipt.crypto.service.Calculator;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -23,7 +22,7 @@ public class CSVReaderImpl implements CSVReader {
     @Override
     public List<CSVRecord> read(String fileName) {
         try {
-            Path path = Paths.get(Calculator.class.getClassLoader().getResource(fileName).toURI());
+            Path path = Paths.get(CSVReaderImpl.class.getClassLoader().getResource(fileName).toURI());
             try(
                     BufferedReader bufferedReader = Files.newBufferedReader(path);
                     CSVParser parser = CSVParser.parse(bufferedReader, CSVFormat.DEFAULT)) {
