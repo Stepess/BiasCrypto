@@ -1,8 +1,8 @@
 package com.kpi.ipt.crypto.utils;
 
-public final class DistributionCalculator {
+import static com.kpi.ipt.crypto.constant.Constants.CIPHERTEXT_POWER;
 
-    private static final int CIPHERTEXT_POWER = 20;
+public final class DistributionCalculator {
 
     private DistributionCalculator() {}
 
